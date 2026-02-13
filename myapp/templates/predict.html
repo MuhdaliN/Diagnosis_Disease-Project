@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Predict Disease{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">🔍 Select Your Symptoms</h2>
+    <form method="post" action="{% url 'result' %}">
+        {% csrf_token %}
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Symptom Checklist</h5>
+                    </div>
+                    <div class="symptom-checkbox-group">
+                        <div class="row">
+                            {% for symptom in all_symptoms %}
+                            <div class="col-md-4 col-sm-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="symptoms" 
+                                           value="{{ symptom }}" id="sym-{{ forloop.counter }}">
+                                    <label class="form-check-label" for="sym-{{ forloop.counter }}">
+                                        {{ symptom }}   <!-- already prettified in view -->
+                                    </label>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="card-footer text-center">
+                        <button type="submit" class="btn btn-success btn-lg px-5">
+                            🔮 Predict Disease
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

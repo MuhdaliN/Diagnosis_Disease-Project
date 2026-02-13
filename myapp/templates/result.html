@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}Prediction Result{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="result-card p-4 mb-4">
+                <h3 class="text-primary">✅ Prediction Result</h3>
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <h4>{{ disease }}</h4>
+                        <p class="display-6 text-success">{{ confidence }}%</p>
+                        <p class="text-muted">confidence</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Top 3 possibilities:</h6>
+                        <ul class="list-group">
+                            {% for name, conf in top3 %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                {{ name }}
+                                <span class="badge bg-primary rounded-pill">{{ conf|floatformat:1 }}%</span>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card p-4">
+                <h5 class="card-title">📊 Probability Distribution (Top 10)</h5>
+                <div class="chart-container">
+                    <canvas id="probChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{% url 'predict' %}" class="btn btn-primary">⬅ New Prediction</a>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctx = document.getElementById('probChart').getContext('2d');
+        const labels = {{ chart_labels|safe }};
+        const values = {{ chart_values|safe }};
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Confidence (%)',
+                    data: values,
+                    backgroundColor: 'rgba(42, 122, 156, 0.7)',
+                    borderColor: 'rgba(42, 122, 156, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: 'Probability (%)'
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.raw.toFixed(2)}%`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}

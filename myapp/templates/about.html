@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}About - Disease Prediction System{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <h2 class="text-primary">About the System</h2>
+            <p class="lead">An interpretable AI system for differential diagnosis.</p>
+            <hr>
+            <h5>🔬 Model</h5>
+            <p>We use a soft‑voting ensemble of Random Forest, XGBoost, and Logistic Regression. The model was trained on a Kaggle dataset containing 41 disease classes and 130+ symptoms.</p>
+            
+            <h5>⚖️ Handling Imbalance</h5>
+            <p>SMOTE (Synthetic Minority Oversampling) ensures that rare diseases are well represented. Custom weighted loss further penalizes misclassifications of minority classes.</p>
+            
+            <h5>📖 Interpretability</h5>
+            <p>We employ SHAP (SHapley Additive exPlanations) to explain individual predictions. For each result, the top contributing symptoms can be visualised – a feature coming soon.</p>
+            
+            <h5>⚠️ Disclaimer</h5>
+            <p>This tool is for educational and research purposes only. Always seek professional medical advice.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

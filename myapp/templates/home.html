@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home - Disease Prediction System{% endblock %}
+
+{% block content %}
+<div class="hero-section text-center">
+    <div class="container">
+        <h1 class="display-4 fw-bold">AI‑Powered Disease Prediction</h1>
+        <p class="lead">Select your symptoms and get instant, interpretable predictions.</p>
+        <a href="{% url 'predict' %}" class="btn btn-light btn-lg mt-3">Start Prediction →</a>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">📋 Symptom Checker</h5>
+                    <p class="card-text">Choose from 130+ symptoms with an intuitive checkbox interface.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">🤖 Advanced Ensemble</h5>
+                    <p class="card-text">Combines Random Forest, XGBoost and Logistic Regression for robust predictions.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">📊 Explainable Results</h5>
+                    <p class="card-text">View confidence scores and a visual breakdown of top disease probabilities.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
